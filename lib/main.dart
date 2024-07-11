@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:travelindia/Views/Splash_Section/splash_view.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 
