@@ -1,9 +1,14 @@
 import 'dart:developer';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 
 class DashboardController extends GetxController {
+  TextEditingController stateController = TextEditingController();
+  TextEditingController cityController = TextEditingController();
+
   RxString currentAddress = "".obs;
 
   Future initialFunctioun() async {

@@ -40,7 +40,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               onPressed: () {
                 Get.back();
               },
-              icon: const Icon(Icons.arrow_back_rounded))
+              icon: const Icon(
+                Icons.arrow_back_rounded,
+              ))
           : leading,
       actions: action,
       centerTitle: centerTitle,

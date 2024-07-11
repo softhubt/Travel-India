@@ -33,7 +33,7 @@ class CustomTextField extends StatelessWidget {
       controller: controller,
       onTap: onTap,
       maxLength: maxLength,
-      cursorColor: ColorConstant.blue,
+      cursorColor: ColorConstant.primary,
       keyboardType: textInputType ?? TextInputType.text,
       validator: validator,
       decoration: InputDecoration(
@@ -48,7 +48,7 @@ class CustomTextField extends StatelessWidget {
         focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8),
             borderSide:
-                const BorderSide(width: 1.5, color: ColorConstant.blue)),
+                const BorderSide(width: 1.5, color: ColorConstant.primary)),
         errorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8),
             borderSide: const BorderSide(width: 1.5)),

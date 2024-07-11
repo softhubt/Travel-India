@@ -6,13 +6,7 @@ import 'package:travelindia/Views/Dashboard_Section/dashboard_view.dart';
 class SplashController extends GetxController {
   RxBool isAuthenticate = false.obs;
 
-  @override
-  void onInit() {
-    super.onInit();
-    initialFunctioun();
-  }
-
-  Future initialFunctioun() async {
+  changeView() async {
     isAuthenticate.value = await StorageServices.getData(
             dataType: StorageKeyConstant.boolType,
             prefKey: StorageKeyConstant.isAuthenticate) ??
