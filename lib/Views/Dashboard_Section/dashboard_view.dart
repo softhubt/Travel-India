@@ -4,6 +4,7 @@ import 'package:travelindia/Constant/color_constant.dart';
 import 'package:travelindia/Constant/layout_constant.dart';
 import 'package:travelindia/Constant/textstyle_constant.dart';
 import 'package:travelindia/Controllers/dashboard_controller.dart';
+import 'package:travelindia/Views/Dashboard_Section/package_detail_view.dart';
 import 'package:travelindia/Widgets/custom_appbar.dart';
 import 'package:travelindia/Widgets/custom_button.dart';
 
@@ -64,18 +65,16 @@ class _DashboardViewState extends State<DashboardView> {
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(
-                top: Get.height * 0.040,
-                bottom: Get.height * 0.040,
-                left: screenWidthPadding,
-                right: screenWidthPadding),
-            child: const CustomButton(title: "Find Places"),
-          ),
+              padding: EdgeInsets.only(
+                  top: Get.height * 0.040,
+                  bottom: Get.height * 0.040,
+                  left: screenWidthPadding,
+                  right: screenWidthPadding),
+              child: const CustomButton(title: "Find Places")),
           Padding(
-            padding: EdgeInsets.only(left: screenWidthPadding),
-            child: Text("India's Top Packages",
-                style: TextStyleConstant.medium24()),
-          ),
+              padding: EdgeInsets.only(left: screenWidthPadding),
+              child: Text("India's Top Packages",
+                  style: TextStyleConstant.medium24())),
           SizedBox(
             height: Get.height * 0.300,
             child: ListView.builder(
@@ -84,46 +83,51 @@ class _DashboardViewState extends State<DashboardView> {
               itemBuilder: (context, index) {
                 return Padding(
                   padding: EdgeInsets.only(left: Get.width * 0.030),
-                  child: Container(
-                    width: Get.width * 0.600,
-                    decoration: BoxDecoration(
-                        color: ColorConstant.white,
-                        borderRadius: BorderRadius.circular(16)),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          height: Get.height * 0.200,
-                          decoration: BoxDecoration(
-                              color: ColorConstant.primary.withOpacity(0.2),
-                              borderRadius: BorderRadius.circular(14),
-                              image: const DecorationImage(
-                                  image: NetworkImage(
-                                      "https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Somanath_mandir_%28cropped%29.jpg/1200px-Somanath_mandir_%28cropped%29.jpg"),
-                                  fit: BoxFit.fill)),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(
-                              top: Get.height * 0.010,
-                              left: contentWidthPadding,
-                              right: contentWidthPadding,
-                              bottom: Get.height * 0.010),
-                          child: Text("Gujarat tour for 3 days",
-                              style: TextStyleConstant.medium20()),
-                        ),
-                        Padding(
-                          padding: contentHorizontalPadding,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text("Rs. 17500",
-                                  style: TextStyleConstant.semiBold18()),
-                              Text("2 Adults",
-                                  style: TextStyleConstant.semiBold18()),
-                            ],
+                  child: GestureDetector(
+                    onTap: () {
+                      Get.to(() => const PackageDetailView());
+                    },
+                    child: Container(
+                      width: Get.width * 0.600,
+                      decoration: BoxDecoration(
+                          color: ColorConstant.white,
+                          borderRadius: BorderRadius.circular(16)),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            height: Get.height * 0.200,
+                            decoration: BoxDecoration(
+                                color: ColorConstant.primary.withOpacity(0.2),
+                                borderRadius: BorderRadius.circular(14),
+                                image: const DecorationImage(
+                                    image: NetworkImage(
+                                        "https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Somanath_mandir_%28cropped%29.jpg/1200px-Somanath_mandir_%28cropped%29.jpg"),
+                                    fit: BoxFit.fill)),
                           ),
-                        ),
-                      ],
+                          Padding(
+                            padding: EdgeInsets.only(
+                                top: Get.height * 0.010,
+                                left: contentWidthPadding,
+                                right: contentWidthPadding,
+                                bottom: Get.height * 0.010),
+                            child: Text("Gujarat tour for 3 days",
+                                style: TextStyleConstant.medium20()),
+                          ),
+                          Padding(
+                            padding: contentHorizontalPadding,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text("Rs. 17500",
+                                    style: TextStyleConstant.semiBold18()),
+                                Text("2 Adults",
+                                    style: TextStyleConstant.semiBold18()),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 );

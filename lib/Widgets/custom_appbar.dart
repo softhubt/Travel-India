@@ -9,7 +9,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final List<Widget>? action;
   final Widget? leading;
   final bool? centerTitle;
-  final bool? isBack;
+  final bool? needBackIcon;
   final Color? backGroundColor;
   final Color? textColor;
 
@@ -17,7 +17,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       {super.key,
       this.title,
       this.centerTitle,
-      this.isBack,
+      this.needBackIcon,
       this.leading,
       this.action,
       this.backGroundColor,
@@ -35,14 +35,10 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               "$title",
               style: TextStyle(color: textColor),
             ),
-      leading: (isBack == true)
+      leading: (needBackIcon == true)
           ? IconButton(
-              onPressed: () {
-                Get.back();
-              },
-              icon: const Icon(
-                Icons.arrow_back_rounded,
-              ))
+              onPressed: () => Get.back(),
+              icon: const Icon(Icons.arrow_back_rounded))
           : leading,
       actions: action,
       centerTitle: centerTitle,
