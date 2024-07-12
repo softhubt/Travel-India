@@ -4,6 +4,7 @@ import 'package:travelindia/Constant/color_constant.dart';
 import 'package:travelindia/Constant/layout_constant.dart';
 import 'package:travelindia/Constant/textstyle_constant.dart';
 import 'package:travelindia/Controllers/dashboard_controller.dart';
+import 'package:travelindia/Views/Dashboard_Section/different_places_view.dart';
 import 'package:travelindia/Views/Dashboard_Section/package_detail_view.dart';
 import 'package:travelindia/Widgets/custom_appbar.dart';
 import 'package:travelindia/Widgets/custom_button.dart';
@@ -134,14 +135,19 @@ class _DashboardViewState extends State<DashboardView> {
               },
             ),
           ),
-          Container(
-            height: Get.height * 0.300,
-            width: Get.width,
-            decoration: const BoxDecoration(
-                image: DecorationImage(
-                    image: NetworkImage(
-                        "https://i.pinimg.com/736x/ac/81/6e/ac816e3d850c796406278250ee4ce059.jpg"),
-                    fit: BoxFit.fill)),
+          GestureDetector(
+            onTap: () {
+              Get.to(() => const DifferentPlacesView());
+            },
+            child: Container(
+              height: Get.height * 0.300,
+              width: Get.width,
+              decoration: const BoxDecoration(
+                  image: DecorationImage(
+                      image: NetworkImage(
+                          "https://i.pinimg.com/736x/ac/81/6e/ac816e3d850c796406278250ee4ce059.jpg"),
+                      fit: BoxFit.fill)),
+            ),
           ),
         ],
       ),

@@ -46,56 +46,54 @@ class PackageDetailView extends StatelessWidget {
                 Text("Person: 2 Adults", style: TextStyleConstant.medium16()),
           ),
           Padding(
-            padding: EdgeInsets.only(
-                left: screenWidthPadding, top: Get.height * 0.020),
-            child: Text("Check out for more persons",
-                style: TextStyleConstant.medium24()),
-          ),
+              padding: EdgeInsets.only(
+                  left: screenWidthPadding, top: Get.height * 0.020),
+              child: Text("Check out for more persons",
+                  style: TextStyleConstant.medium24())),
           Padding(
-            padding: EdgeInsets.only(left: screenWidthPadding),
-            child: Text("2 Adults: Rs. 17500",
-                style: TextStyleConstant.medium16()),
-          ),
+              padding: EdgeInsets.only(left: screenWidthPadding),
+              child: Text("2 Adults: Rs. 17500",
+                  style: TextStyleConstant.medium16())),
           Padding(
-            padding: EdgeInsets.only(left: screenWidthPadding),
-            child: Text("3 Adults: Rs. 20800",
-                style: TextStyleConstant.medium16()),
-          ),
+              padding: EdgeInsets.only(left: screenWidthPadding),
+              child: Text("3 Adults: Rs. 20800",
+                  style: TextStyleConstant.medium16())),
           Padding(
-            padding: EdgeInsets.only(left: screenWidthPadding),
-            child: Text("4 Adults: Rs. 23800",
-                style: TextStyleConstant.medium16()),
-          ),
+              padding: EdgeInsets.only(left: screenWidthPadding),
+              child: Text("4 Adults: Rs. 23800",
+                  style: TextStyleConstant.medium16())),
           Padding(
-            padding: EdgeInsets.only(left: screenWidthPadding),
-            child: Text("5 Adults: Rs. 29500",
-                style: TextStyleConstant.medium16()),
-          ),
+              padding: EdgeInsets.only(left: screenWidthPadding),
+              child: Text("5 Adults: Rs. 29500",
+                  style: TextStyleConstant.medium16())),
           Padding(
-            padding: EdgeInsets.only(left: screenWidthPadding),
-            child: Text("6 Adults: Rs. 32000",
-                style: TextStyleConstant.medium16()),
-          ),
+              padding: EdgeInsets.only(left: screenWidthPadding),
+              child: Text("6 Adults: Rs. 32000",
+                  style: TextStyleConstant.medium16())),
           Padding(
-            padding: EdgeInsets.only(
-                left: screenWidthPadding, top: Get.height * 0.020),
-            child: Text("Check out for more persons",
-                style: TextStyleConstant.medium24()),
-          ),
+              padding: EdgeInsets.only(
+                  left: screenWidthPadding, top: Get.height * 0.020),
+              child: Text("Check out for more persons",
+                  style: TextStyleConstant.medium24())),
           Padding(
-            padding: EdgeInsets.only(left: screenWidthPadding),
-            child: Text("Private AC Cars, Breakfast, 3 Star Hotel, All Taxes.",
-                style: TextStyleConstant.medium16()),
-          ),
-          Row(
-            children: [
-              CustomButton(
-                title: "Pay Now",
-              ),
-            ],
-          ),
+              padding: EdgeInsets.only(left: screenWidthPadding),
+              child: Text(
+                  "Private AC Cars, Breakfast, 3 Star Hotel, All Taxes.",
+                  style: TextStyleConstant.medium16())),
         ],
       ),
+      bottomNavigationBar: Padding(
+          padding: EdgeInsets.only(
+              left: screenWidthPadding,
+              right: screenWidthPadding,
+              bottom: screenHeightPadding),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              CustomButton(width: Get.width * 0.450, title: "Total Rs. 17500"),
+              CustomButton(width: Get.width * 0.400, title: "Pay Now"),
+            ],
+          )),
     );
   }
 }
