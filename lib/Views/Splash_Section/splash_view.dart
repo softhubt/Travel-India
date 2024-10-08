@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:travelindia/Constant/textstyle_constant.dart';
+import 'package:travelindia/Constant/image_path_constant.dart';
 import 'package:travelindia/Controllers/splash_controller.dart';
 
 class SplashView extends StatefulWidget {
@@ -22,8 +22,17 @@ class _SplashViewState extends State<SplashView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Center(
-            child:
-                Text("Travel India", style: TextStyleConstant.semiBold22())));
+      body: GetBuilder<SplashController>(
+          init: SplashController(),
+          builder: (controller) {
+            return Center(
+              child: Image.asset(
+                ImagePathConstant.spash,
+                // height: Get.height * 0.200,
+                // width: Get.width * 0.800,
+              ),
+            );
+          }),
+    );
   }
 }

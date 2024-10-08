@@ -1,14 +1,15 @@
 class EndPointConstant {
-  static const String baseUrl = 'https://spardhabook.com/admin/api/';
+  //static const String baseUrl = 'https://spardhabook.com/admin/api/';
+  static const String baseUrl = ' https://meradaftar.com/travel_admin/travel_india_api/';
 
-  static const String languageList = 'language_list.php';
+  static const String packagelist = 'package_list.php';
   static const String createAccount = 'create_account.php';
   static const String category = 'category.php';
   static const String categoryUpdate = 'category_update.php';
   static const String subcategoryList = 'subcategory_list.php';
   static const String courseList = 'course_list.php';
-  static const String ads = 'advertiesment.php';
-  static const String courseVideo = 'course_video.php';
+  static const String statelist= 'state_list.php';
+  static const String citylist = 'city_list.php';
   static const String classes = 'classes.php';
   static const String message = 'message.php';
   static const String messageReply = 'message_reply.php';
