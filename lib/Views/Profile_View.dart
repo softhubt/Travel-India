@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 
-
 class ProfilePage extends StatefulWidget {
+  const ProfilePage({super.key});
+
   @override
   _ProfilePageState createState() => _ProfilePageState();
 }
@@ -23,7 +24,8 @@ class _ProfilePageState extends State<ProfilePage> {
   Future<void> _submitForm() async {
     if (_formKey.currentState?.validate() ?? false) {
       final response = await http.post(
-        Uri.parse("https://meradaftar.com/travel_admin/travel_india_api/user_form.php"),
+        Uri.parse(
+            "https://meradaftar.com/travel_admin/travel_india_api/user_form.php"),
         body: {
           'name': _nameController.text,
           'contact': _contactController.text,
@@ -38,18 +40,19 @@ class _ProfilePageState extends State<ProfilePage> {
         final responseData = jsonDecode(response.body);
         if (responseData['code'] == "200") {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Form submitted successfully!')),
+            const SnackBar(content: Text('Form submitted successfully!')),
           );
           // Clear form fields or navigate to another page
           _formKey.currentState?.reset();
         } else {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Submission failed: ${responseData['Message']}')),
+            SnackBar(
+                content: Text('Submission failed: ${responseData['Message']}')),
           );
         }
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Failed to submit form.')),
+          const SnackBar(content: Text('Failed to submit form.')),
         );
       }
     }
@@ -74,7 +77,8 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Plan Your Trip', style: TextStyle(fontWeight: FontWeight.bold)),
+        title: const Text('Plan Your Trip',
+            style: TextStyle(fontWeight: FontWeight.bold)),
         backgroundColor: Colors.teal,
       ),
       body: Padding(
@@ -82,14 +86,14 @@ class _ProfilePageState extends State<ProfilePage> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              Text(
+              const Text(
                 'Profile Information',
                 // style: Theme.of(context).textTheme.headline6?.copyWith(
                 //   fontWeight: FontWeight.bold,
                 //   color: Colors.teal,
                 // ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Form(
                 key: _formKey,
                 child: Column(
@@ -151,19 +155,21 @@ class _ProfilePageState extends State<ProfilePage> {
                       },
                     ),
                     _buildDateField(),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     ElevatedButton(
                       onPressed: _submitForm,
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.teal,
-                        padding: EdgeInsets.symmetric(vertical: 15, horizontal: 25),
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 15, horizontal: 25),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30),
                         ),
                       ),
-                      child: Text(
+                      child: const Text(
                         'Submit',
-                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold),
                       ),
                     ),
                   ],
@@ -212,10 +218,10 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
           filled: true,
           fillColor: Colors.grey[200],
-          suffixIcon: Icon(Icons.calendar_today),
+          suffixIcon: const Icon(Icons.calendar_today),
         ),
         keyboardType: TextInputType.datetime,
-        readOnly: true,  // Prevent user from typing manually
+        readOnly: true, // Prevent user from typing manually
         onTap: () => _selectDate(context),
         validator: (value) {
           if (value == null || value.isEmpty) {

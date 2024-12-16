@@ -10,28 +10,33 @@ class FindPlacesByCategoryView extends StatefulWidget {
   final String category;
 
   const FindPlacesByCategoryView({
-    Key? key,
+    super.key,
     required this.state,
     required this.city,
     required this.category,
-  }) : super(key: key);
+  });
 
   @override
-  _FindPlacesByCategoryViewState createState() => _FindPlacesByCategoryViewState();
+  _FindPlacesByCategoryViewState createState() =>
+      _FindPlacesByCategoryViewState();
 }
 
 class _FindPlacesByCategoryViewState extends State<FindPlacesByCategoryView> {
-  List<finddashbordplaceModel> locations = []; // Create a list to hold location data
+  List<finddashbordplaceModel> locations =
+      []; // Create a list to hold location data
 
   @override
   void initState() {
     super.initState();
-    fetchLocations(widget.state, widget.city, widget.category); // Fetch locations on screen initialization
+    fetchLocations(widget.state, widget.city,
+        widget.category); // Fetch locations on screen initialization
   }
 
-  Future<void> fetchLocations(String state, String city, String category) async {
+  Future<void> fetchLocations(
+      String state, String city, String category) async {
     final response = await http.post(
-      Uri.parse("https://meradaftar.com/travel_admin/travel_india_api/category_locationlist.php"),
+      Uri.parse(
+          "https://meradaftar.com/travel_admin/travel_india_api/category_locationlist.php"),
       body: {
         'state_name': state,
         'city_name': city,
@@ -43,7 +48,9 @@ class _FindPlacesByCategoryViewState extends State<FindPlacesByCategoryView> {
       final List<dynamic> locationsList = jsonData['category_location_list'];
 
       setState(() {
-        locations = locationsList.map((json) => finddashbordplaceModel.fromJson(json)).toList();
+        locations = locationsList
+            .map((json) => finddashbordplaceModel.fromJson(json))
+            .toList();
       });
     } else {
       throw Exception('Failed to load locations');
@@ -61,13 +68,15 @@ class _FindPlacesByCategoryViewState extends State<FindPlacesByCategoryView> {
         itemBuilder: (context, index) {
           final location = locations[index];
           return Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+            padding:
+                const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
             child: GestureDetector(
               onTap: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => LocationDetailPage(locationName: location.name),
+                    builder: (context) =>
+                        LocationDetailPage(locationName: location.name),
                   ),
                 );
               },
@@ -87,11 +96,12 @@ class _FindPlacesByCategoryViewState extends State<FindPlacesByCategoryView> {
                       left: 8.0,
                       child: Row(
                         children: [
-                          Icon(Icons.location_on, color: Colors.white, size: 20.0),
-                          SizedBox(width: 4.0),
+                          const Icon(Icons.location_on,
+                              color: Colors.white, size: 20.0),
+                          const SizedBox(width: 4.0),
                           Text(
                             location.name,
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: Colors.white,
                               fontSize: 16.0,
                               fontWeight: FontWeight.bold,
@@ -117,4 +127,3 @@ class _FindPlacesByCategoryViewState extends State<FindPlacesByCategoryView> {
     );
   }
 }
-

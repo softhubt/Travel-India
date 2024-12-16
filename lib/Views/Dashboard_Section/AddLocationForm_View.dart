@@ -5,6 +5,8 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class AddLocationScreen extends StatefulWidget {
+  const AddLocationScreen({super.key});
+
   @override
   _AddLocationScreenState createState() => _AddLocationScreenState();
 }
@@ -43,7 +45,10 @@ class _AddLocationScreenState extends State<AddLocationScreen> {
     final openDays = _openDaysController.text;
     final closeDays = _closeDaysController.text;
 
-    if (state.isEmpty || city.isEmpty || locationName.isEmpty || description.isEmpty) {
+    if (state.isEmpty ||
+        city.isEmpty ||
+        locationName.isEmpty ||
+        description.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('Please fill in all required fields'),
@@ -57,7 +62,8 @@ class _AddLocationScreenState extends State<AddLocationScreen> {
 
       final request = http.MultipartRequest(
         'POST',
-        Uri.parse('https://meradaftar.com/travel_admin/travel_india_api/location_api.php'),
+        Uri.parse(
+            'https://meradaftar.com/travel_admin/travel_india_api/location_api.php'),
       )
         ..fields['state'] = state
         ..fields['city'] = city
@@ -83,11 +89,13 @@ class _AddLocationScreenState extends State<AddLocationScreen> {
             content: Text('Location details submitted successfully'),
           ),
         );
-        Navigator.of(context).pop(); // Close the dialog on successful submission
+        Navigator.of(context)
+            .pop(); // Close the dialog on successful submission
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Failed to submit location details: ${data['Message']}'),
+            content:
+                Text('Failed to submit location details: ${data['Message']}'),
           ),
         );
       }
@@ -212,34 +220,37 @@ class _AddLocationScreenState extends State<AddLocationScreen> {
                       child: Column(
                         children: [
                           _image == null
-                              ? Center(child: Text('No image selected.', style: TextStyle(color: Colors.grey)))
+                              ? const Center(
+                                  child: Text('No image selected.',
+                                      style: TextStyle(color: Colors.grey)))
                               : ClipRRect(
-                            borderRadius: BorderRadius.circular(10),
-                            child: Image.file(
-                              _image!,
-                              fit: BoxFit.cover,
-                              height: 200,
-                              width: double.infinity,
-                            ),
-                          ),
+                                  borderRadius: BorderRadius.circular(10),
+                                  child: Image.file(
+                                    _image!,
+                                    fit: BoxFit.cover,
+                                    height: 200,
+                                    width: double.infinity,
+                                  ),
+                                ),
                           const SizedBox(height: 10),
                           ElevatedButton.icon(
                             onPressed: () async {
-                              final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
+                              final pickedFile = await _picker.pickImage(
+                                  source: ImageSource.gallery);
                               if (pickedFile != null) {
                                 setState(() {
                                   _image = File(pickedFile.path);
                                 });
                               }
                             },
-                            icon: Icon(Icons.photo_library),
-                            label: Text('Pick Image'),
+                            icon: const Icon(Icons.photo_library),
+                            label: const Text('Pick Image'),
                             style: ElevatedButton.styleFrom(
                               // primary: Colors.blueAccent,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10),
                               ),
-                              minimumSize: Size(double.infinity, 50),
+                              minimumSize: const Size(double.infinity, 50),
                             ),
                           ),
                         ],
@@ -256,7 +267,7 @@ class _AddLocationScreenState extends State<AddLocationScreen> {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
-                      minimumSize: Size(double.infinity, 50),
+                      minimumSize: const Size(double.infinity, 50),
                     ),
                     child: const Text('Submit'),
                   ),

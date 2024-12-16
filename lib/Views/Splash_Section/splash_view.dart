@@ -25,13 +25,8 @@ class _SplashViewState extends State<SplashView> {
       body: GetBuilder<SplashController>(
           init: SplashController(),
           builder: (controller) {
-            return Center(
-              child: Image.asset(
-                ImagePathConstant.spash,
-                // height: Get.height * 0.200,
-                // width: Get.width * 0.800,
-              ),
-            );
+            return Expanded(
+                child: Image.asset(ImagePathConstant.spash, fit: BoxFit.fill));
           }),
     );
   }

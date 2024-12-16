@@ -1,9 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
 import 'package:travelindia/Constant/color_constant.dart';
-import 'package:travelindia/Constant/layout_constant.dart';
 import 'package:travelindia/Widgets/custom_appbar.dart';
 import 'package:travelindia/Widgets/custom_button.dart';
 

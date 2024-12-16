@@ -6,7 +6,6 @@ class ImagePathConstant {
   static const String spash = "assets/Images/spash.jpeg";
   static const String Location = "assets/Images/Location.png";
 
-
   //GIF
   static const String loader = "assets/loader.gif";
   static const String videoLoader = "assets/videoloader.gif";

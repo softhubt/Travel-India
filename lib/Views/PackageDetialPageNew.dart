@@ -13,7 +13,7 @@ import 'package:url_launcher/url_launcher.dart';
 class PackageDetailViewnew extends StatefulWidget {
   final PackageModel package;
 
-  const PackageDetailViewnew({Key? key, required this.package}) : super(key: key);
+  const PackageDetailViewnew({super.key, required this.package});
 
   @override
   _PackageDetailViewnewState createState() => _PackageDetailViewnewState();
@@ -22,7 +22,7 @@ class PackageDetailViewnew extends StatefulWidget {
 class _PackageDetailViewnewState extends State<PackageDetailViewnew> {
   late Future<PackageDetailModel> _packageDetail;
   Map<String, String> package = {
-    'payment': 'https://example.com/payment',  // Replace with actual URL
+    'payment': 'https://example.com/payment', // Replace with actual URL
   };
   @override
   void initState() {
@@ -32,7 +32,8 @@ class _PackageDetailViewnewState extends State<PackageDetailViewnew> {
 
   Future<PackageDetailModel> fetchPackageDetail(String id) async {
     final response = await http.post(
-      Uri.parse("https://meradaftar.com/travel_admin/travel_india_api/package_details.php"),
+      Uri.parse(
+          "https://meradaftar.com/travel_admin/travel_india_api/package_details.php"),
       body: {'id': id},
     );
 
@@ -48,16 +49,17 @@ class _PackageDetailViewnewState extends State<PackageDetailViewnew> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: widget.package.packageName, needBackIcon: true),
+      appBar:
+          CustomAppBar(title: widget.package.packageName, needBackIcon: true),
       body: FutureBuilder<PackageDetailModel>(
         future: _packageDetail,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
             return Center(child: Text('Error: ${snapshot.error}'));
           } else if (!snapshot.hasData) {
-            return Center(child: Text('No data available'));
+            return const Center(child: Text('No data available'));
           }
 
           final package = snapshot.data!;
@@ -80,56 +82,66 @@ class _PackageDetailViewnewState extends State<PackageDetailViewnew> {
                   top: Get.height * 0.010,
                   right: screenWidthPadding,
                 ),
-                child: Text(package.packageName, style: TextStyleConstant.medium26()),
+                child: Text(package.packageName,
+                    style: TextStyleConstant.medium26()),
               ),
               Padding(
                 padding: EdgeInsets.only(left: screenWidthPadding),
-                child: Text('Rs. ${package.price2}', style: TextStyleConstant.semiBold24()),
+                child: Text('Rs. ${package.price2}',
+                    style: TextStyleConstant.semiBold24()),
               ),
               Padding(
                 padding: EdgeInsets.only(
                   left: screenWidthPadding,
                   top: Get.height * 0.020,
                 ),
-                child: Text('Duration: ${package.numberOfDays} Days', style: TextStyleConstant.medium16()),
+                child: Text('Duration: ${package.numberOfDays} Days',
+                    style: TextStyleConstant.medium16()),
               ),
               Padding(
                 padding: EdgeInsets.only(left: screenWidthPadding),
-                child: Text('Includes: ${package.description}', style: TextStyleConstant.medium16()),
+                child: Text('Includes: ${package.description}',
+                    style: TextStyleConstant.medium16()),
               ),
               Padding(
                 padding: EdgeInsets.only(
                   left: screenWidthPadding,
                   top: Get.height * 0.020,
                 ),
-                child: Text('Check out for more persons', style: TextStyleConstant.medium24()),
+                child: Text('Check out for more persons',
+                    style: TextStyleConstant.medium24()),
               ),
               if (package.price3.isNotEmpty)
                 Padding(
                   padding: EdgeInsets.only(left: screenWidthPadding),
-                  child: Text('3 Adults: Rs. ${package.price3}', style: TextStyleConstant.medium16()),
+                  child: Text('3 Adults: Rs. ${package.price3}',
+                      style: TextStyleConstant.medium16()),
                 ),
               if (package.price4.isNotEmpty)
                 Padding(
                   padding: EdgeInsets.only(left: screenWidthPadding),
-                  child: Text('4 Adults: Rs. ${package.price4}', style: TextStyleConstant.medium16()),
+                  child: Text('4 Adults: Rs. ${package.price4}',
+                      style: TextStyleConstant.medium16()),
                 ),
               if (package.price5.isNotEmpty)
                 Padding(
                   padding: EdgeInsets.only(left: screenWidthPadding),
-                  child: Text('5 Adults: Rs. ${package.price5}', style: TextStyleConstant.medium16()),
+                  child: Text('5 Adults: Rs. ${package.price5}',
+                      style: TextStyleConstant.medium16()),
                 ),
               if (package.price6.isNotEmpty)
                 Padding(
                   padding: EdgeInsets.only(left: screenWidthPadding),
-                  child: Text('6 Adults: Rs. ${package.price6}', style: TextStyleConstant.medium16()),
+                  child: Text('6 Adults: Rs. ${package.price6}',
+                      style: TextStyleConstant.medium16()),
                 ),
               Padding(
                 padding: EdgeInsets.only(
                   left: screenWidthPadding,
                   top: Get.height * 0.020,
                 ),
-                child: Text('Additional Details', style: TextStyleConstant.medium24()),
+                child: Text('Additional Details',
+                    style: TextStyleConstant.medium24()),
               ),
               Padding(
                 padding: EdgeInsets.only(left: screenWidthPadding),
@@ -151,14 +163,16 @@ class _PackageDetailViewnewState extends State<PackageDetailViewnew> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            CustomButton(width: Get.width * 0.450, title: "Total Rs. ${widget.package.price2}"),
-        CustomButton(
-          width: Get.width * 0.400,
-          title: "Pay Now",
-          onTap: () {
-            launchURL(package['payment']!);  // Make sure the URL is valid
-          },
-        )
+            CustomButton(
+                width: Get.width * 0.450,
+                title: "Total Rs. ${widget.package.price2}"),
+            CustomButton(
+              width: Get.width * 0.400,
+              title: "Pay Now",
+              onTap: () {
+                launchURL(package['payment']!); // Make sure the URL is valid
+              },
+            )
           ],
         ),
       ),

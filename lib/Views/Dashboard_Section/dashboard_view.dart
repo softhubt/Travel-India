@@ -7,7 +7,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:travelindia/Constant/textstyle_constant.dart';
 import 'package:travelindia/Controllers/dashboard_controller.dart';
 import 'package:travelindia/Model/Get_CategoryList_Model.dart';
-import 'package:travelindia/Model/LocationNew_Model.dart';
 import 'package:travelindia/Model/Location_Model.dart';
 import 'package:travelindia/Model/PackgeList_Model.dart';
 import 'package:travelindia/Views/Dashboard_Section/AddLocationForm_View.dart';
@@ -17,7 +16,7 @@ import 'package:travelindia/Views/PackageDetialPageNew.dart';
 import 'package:travelindia/Widgets/custom_appbar.dart';
 
 class DashboardView extends StatefulWidget {
-  const DashboardView({Key? key}) : super(key: key);
+  const DashboardView({super.key});
 
   @override
   State<DashboardView> createState() => _DashboardViewState();
@@ -53,6 +52,7 @@ class _DashboardViewState extends State<DashboardView> {
     fetchPackages();
     controller.initialFunctioun().whenComplete(() => setState(() {}));
   }
+
   @override
   void dispose() {
     _nameController.dispose();
@@ -147,7 +147,10 @@ class _DashboardViewState extends State<DashboardView> {
     final openDays = _openDaysController.text;
     final closeDays = _closeDaysController.text;
 
-    if (state.isEmpty || city.isEmpty || locationName.isEmpty || description.isEmpty) {
+    if (state.isEmpty ||
+        city.isEmpty ||
+        locationName.isEmpty ||
+        description.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('Please fill in all required fields'),
@@ -159,7 +162,8 @@ class _DashboardViewState extends State<DashboardView> {
     try {
       final request = http.MultipartRequest(
         'POST',
-        Uri.parse('https://meradaftar.com/travel_admin/travel_india_api/location_api.php'),
+        Uri.parse(
+            'https://meradaftar.com/travel_admin/travel_india_api/location_api.php'),
       )
         ..fields['state'] = state
         ..fields['city'] = city
@@ -172,7 +176,8 @@ class _DashboardViewState extends State<DashboardView> {
         ..fields['status_approved'] = 'N';
 
       if (_image != null) {
-        request.files.add(await http.MultipartFile.fromPath('file', _image!.path));
+        request.files
+            .add(await http.MultipartFile.fromPath('file', _image!.path));
       }
 
       final response = await request.send();
@@ -185,23 +190,18 @@ class _DashboardViewState extends State<DashboardView> {
             content: Text('Location details submitted successfully'),
           ),
         );
-        Navigator.of(context).pop(); // Close the dialog on successful submission
+        Navigator.of(context)
+            .pop(); // Close the dialog on successful submission
       } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Failed to submit location details: ${data['Message']}'),
-          ),
-        );
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content:
+                Text('Failed to submit location details: ${data['Message']}')));
       }
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('An error occurred: $e'),
-        ),
-      );
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text('An error occurred: $e')));
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -215,7 +215,8 @@ class _DashboardViewState extends State<DashboardView> {
           trailing: IconButton(
             icon: const Icon(Icons.location_on),
             onPressed: () {
-              if (controller.currentState.value.isNotEmpty && controller.currentCity.value.isNotEmpty) {
+              if (controller.currentState.value.isNotEmpty &&
+                  controller.currentCity.value.isNotEmpty) {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -236,8 +237,6 @@ class _DashboardViewState extends State<DashboardView> {
           ),
         ),
       ),
-
-
       body: ListView(
         padding: const EdgeInsets.all(16.0),
         children: [
@@ -312,7 +311,7 @@ class _DashboardViewState extends State<DashboardView> {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
                               content:
-                              Text('Please select both state and city')),
+                                  Text('Please select both state and city')),
                         );
                       }
                     },
@@ -323,8 +322,8 @@ class _DashboardViewState extends State<DashboardView> {
             ),
           ),
           const SizedBox(height: 20),
-          Padding(
-            padding: const EdgeInsets.only(left: 16.0),
+          const Padding(
+            padding: EdgeInsets.only(left: 16.0),
             child: Text(
               "Travel by Categories",
               style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
@@ -336,11 +335,11 @@ class _DashboardViewState extends State<DashboardView> {
               future: fetchCategories(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(child: CircularProgressIndicator());
+                  return const Center(child: CircularProgressIndicator());
                 } else if (snapshot.hasError) {
                   return Center(child: Text('Error: ${snapshot.error}'));
                 } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                  return Center(child: Text('No categories found'));
+                  return const Center(child: Text('No categories found'));
                 } else {
                   final categories = snapshot.data!;
                   return ListView.builder(
@@ -353,9 +352,11 @@ class _DashboardViewState extends State<DashboardView> {
                         child: GestureDetector(
                           onTap: () {
                             setState(() {
-                              selectedCategory = category; // Set the selected category
+                              selectedCategory =
+                                  category; // Set the selected category
                             });
-                            showSearchDialog(context, category); // Pass the selected category
+                            showSearchDialog(context,
+                                category); // Pass the selected category
                           },
                           child: Container(
                             width: 140,
@@ -381,7 +382,8 @@ class _DashboardViewState extends State<DashboardView> {
                                   padding: const EdgeInsets.all(8.0),
                                   child: Text(
                                     category.categoryName,
-                                    style: TextStyle(fontWeight: FontWeight.bold),
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold),
                                   ),
                                 ),
                               ],
@@ -395,7 +397,6 @@ class _DashboardViewState extends State<DashboardView> {
               },
             ),
           ),
-
           const SizedBox(height: 10),
           Padding(
             padding: const EdgeInsets.only(left: 16.0),
@@ -446,25 +447,25 @@ class _DashboardViewState extends State<DashboardView> {
                                 vertical: 10.0, horizontal: 16.0),
                             child: Text(
                               packages[index].packageName,
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontSize: 20, fontWeight: FontWeight.bold),
                             ),
                           ),
                           Padding(
                             padding:
-                            const EdgeInsets.symmetric(horizontal: 16.0),
+                                const EdgeInsets.symmetric(horizontal: 16.0),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
                                   'Rs. ${packages[index].price2}',
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight.bold),
                                 ),
                                 Text(
                                   '${packages[index].numberOfDays} Days',
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight.bold),
                                 ),
@@ -493,20 +494,21 @@ class _DashboardViewState extends State<DashboardView> {
                   onPressed: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (context) => AddLocationScreen(),
+                        builder: (context) => const AddLocationScreen(),
                       ),
                     );
                   },
                   child: Image.asset('assets/Images/Location.png'),
                 ),
-                SizedBox(height: 8), // Space between icon and text
+                const SizedBox(height: 8), // Space between icon and text
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                   decoration: BoxDecoration(
                     color: Colors.blue,
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  child: Text(
+                  child: const Text(
                     'Add Favorite Spots',
                     style: TextStyle(
                       color: Colors.white,
@@ -520,7 +522,6 @@ class _DashboardViewState extends State<DashboardView> {
           ),
         ],
       ),
-
     );
   }
 
@@ -541,7 +542,8 @@ class _DashboardViewState extends State<DashboardView> {
                   onTap: () {
                     setState(() {
                       selectedState = states[index];
-                      selectedCity = null; // Reset city selection when state changes
+                      selectedCity =
+                          null; // Reset city selection when state changes
                       fetchCities(selectedState!.name);
                     });
                     Navigator.of(context).pop();
@@ -636,7 +638,8 @@ class _DashboardViewState extends State<DashboardView> {
                               setState(() {
                                 selectedState = newState;
                                 selectedCity = null; // Reset city selection
-                                cities = []; // Clear cities until new ones are fetched
+                                cities =
+                                    []; // Clear cities until new ones are fetched
                                 if (selectedState != null) {
                                   fetchCities(selectedState!.name);
                                 }
@@ -677,28 +680,33 @@ class _DashboardViewState extends State<DashboardView> {
                           ),
                         ),
                       ),
-                      Spacer(),
+                      const Spacer(),
                       // Search Button
                       Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 16.0),
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 20.0, horizontal: 16.0),
                         child: ElevatedButton(
                           onPressed: () {
-                            if (selectedState != null && selectedCity != null && selectedCategory != null) {
-                              Navigator.of(context).pop(); // Close the dialog first
+                            if (selectedState != null && selectedCity != null) {
+                              Navigator.of(context)
+                                  .pop(); // Close the dialog first
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => FindPlacesByCategoryView(
+                                  builder: (context) =>
+                                      FindPlacesByCategoryView(
                                     state: selectedState!.name,
                                     city: selectedCity!.name,
-                                    category: selectedCategory.categoryName, // Pass category here
+                                    category: selectedCategory
+                                        .categoryName, // Pass category here
                                   ),
                                 ),
                               );
                             } else {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(
-                                  content: Text('Please select both state and city'),
+                                  content:
+                                      Text('Please select both state and city'),
                                 ),
                               );
                             }
@@ -798,7 +806,6 @@ class _DashboardViewState extends State<DashboardView> {
   //   );
   // }
 
-
   Future<void> getImage() async {
     final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
 
@@ -810,6 +817,4 @@ class _DashboardViewState extends State<DashboardView> {
       }
     });
   }
-
-
 }

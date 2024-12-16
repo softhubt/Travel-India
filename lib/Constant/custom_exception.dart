@@ -7,6 +7,7 @@ class CustomException implements Exception {
     this._prefix,
   ]);
 
+  @override
   String toString() {
     return "$_prefix$_message";
   }

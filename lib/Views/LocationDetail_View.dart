@@ -7,7 +7,7 @@ import 'package:travelindia/Views/Profile_View.dart';
 class LocationDetailPage extends StatefulWidget {
   final String locationName;
 
-  LocationDetailPage({required this.locationName});
+  const LocationDetailPage({super.key, required this.locationName});
 
   @override
   State<LocationDetailPage> createState() => _LocationDetailPageState();
@@ -16,7 +16,8 @@ class LocationDetailPage extends StatefulWidget {
 class _LocationDetailPageState extends State<LocationDetailPage> {
   Future<Map<String, dynamic>> fetchLocationDetails() async {
     final response = await http.post(
-      Uri.parse("https://meradaftar.com/travel_admin/travel_india_api/location_details.php"),
+      Uri.parse(
+          "https://meradaftar.com/travel_admin/travel_india_api/location_details.php"),
       body: {
         'location_name': widget.locationName,
       },
@@ -43,19 +44,19 @@ class _LocationDetailPageState extends State<LocationDetailPage> {
         future: fetchLocationDetails(),
         builder: (context, AsyncSnapshot<Map<String, dynamic>> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
             return Center(child: Text('Error: ${snapshot.error}'));
           } else if (!snapshot.hasData || snapshot.data == null) {
-            return Center(child: Text('No data found'));
+            return const Center(child: Text('No data found'));
           } else {
             var item = snapshot.data!['itemlist'][0];
 
             return ListView(
-              padding: EdgeInsets.all(16.0),
+              padding: const EdgeInsets.all(16.0),
               children: [
                 Image.network(item['file']),
-                SizedBox(height: 16.0),
+                const SizedBox(height: 16.0),
                 // Row with icons and labels
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -63,8 +64,9 @@ class _LocationDetailPageState extends State<LocationDetailPage> {
                     Column(
                       children: [
                         IconButton(
-                          icon: Icon(Icons.location_on),
-                          color: _isLocationSelected ? Colors.blue : Colors.black,
+                          icon: const Icon(Icons.location_on),
+                          color:
+                              _isLocationSelected ? Colors.blue : Colors.black,
                           onPressed: () {
                             setState(() {
                               _isLocationSelected = !_isLocationSelected;
@@ -74,14 +76,15 @@ class _LocationDetailPageState extends State<LocationDetailPage> {
                             });
                           },
                         ),
-                        Text('Location'),
+                        const Text('Location'),
                       ],
                     ),
                     Column(
                       children: [
                         IconButton(
-                          icon: Icon(Icons.access_time),
-                          color: _isVisitTimeSelected ? Colors.blue : Colors.black,
+                          icon: const Icon(Icons.access_time),
+                          color:
+                              _isVisitTimeSelected ? Colors.blue : Colors.black,
                           onPressed: () {
                             setState(() {
                               _isVisitTimeSelected = !_isVisitTimeSelected;
@@ -91,7 +94,7 @@ class _LocationDetailPageState extends State<LocationDetailPage> {
                             showDialog(
                               context: context,
                               builder: (context) => AlertDialog(
-                                title: Text('Visiting Time Details'),
+                                title: const Text('Visiting Time Details'),
                                 content: Column(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
@@ -103,20 +106,20 @@ class _LocationDetailPageState extends State<LocationDetailPage> {
                                 actions: [
                                   TextButton(
                                     onPressed: () => Navigator.pop(context),
-                                    child: Text('OK'),
+                                    child: const Text('OK'),
                                   ),
                                 ],
                               ),
                             );
                           },
                         ),
-                        Text('Visit Time'),
+                        const Text('Visit Time'),
                       ],
                     ),
                     Column(
                       children: [
                         IconButton(
-                          icon: Icon(Icons.share),
+                          icon: const Icon(Icons.share),
                           color: _isShareSelected ? Colors.blue : Colors.black,
                           onPressed: () {
                             setState(() {
@@ -130,15 +133,15 @@ class _LocationDetailPageState extends State<LocationDetailPage> {
                             );
                           },
                         ),
-                        Text('Share'),
+                        const Text('Share'),
                       ],
                     ),
                   ],
                 ),
-                SizedBox(height: 16.0),
+                const SizedBox(height: 16.0),
                 Text(
                   item['description'],
-                  style: TextStyle(fontSize: 16.0),
+                  style: const TextStyle(fontSize: 16.0),
                 ),
               ],
             );
@@ -164,7 +167,7 @@ class _LocationDetailPageState extends State<LocationDetailPage> {
             case 1:
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => ProfilePage()),
+                MaterialPageRoute(builder: (context) => const ProfilePage()),
               ); // Navigate to Profile
               break;
           }

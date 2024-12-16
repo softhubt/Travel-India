@@ -9,27 +9,30 @@ class FindPlacesView extends StatefulWidget {
   final String city;
 
   const FindPlacesView({
-    Key? key,
+    super.key,
     required this.state,
     required this.city,
-  }) : super(key: key);
+  });
 
   @override
   _FindPlacesViewState createState() => _FindPlacesViewState();
 }
 
 class _FindPlacesViewState extends State<FindPlacesView> {
-  List<finddashbordplaceModel> locations = []; // Create a list to hold location data
+  List<finddashbordplaceModel> locations =
+      []; // Create a list to hold location data
 
   @override
   void initState() {
     super.initState();
-    fetchLocations(widget.state, widget.city); // Fetch locations on screen initialization
+    fetchLocations(
+        widget.state, widget.city); // Fetch locations on screen initialization
   }
 
   Future<void> fetchLocations(String state, String city) async {
     final response = await http.post(
-      Uri.parse("https://meradaftar.com/travel_admin/travel_india_api/category_locationlist.php"),
+      Uri.parse(
+          "https://meradaftar.com/travel_admin/travel_india_api/category_locationlist.php"),
       body: {
         'state_name': state,
         'city_name': city,
@@ -57,18 +60,19 @@ class _FindPlacesViewState extends State<FindPlacesView> {
       appBar: AppBar(
         title: Text('${widget.city}, ${widget.state}'),
       ),
-      body:
-      ListView.builder(
+      body: ListView.builder(
         itemCount: locations.length,
         itemBuilder: (context, index) {
           return Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+            padding:
+                const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
             child: GestureDetector(
               onTap: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => LocationDetailPage(locationName: locations[index].name),
+                    builder: (context) =>
+                        LocationDetailPage(locationName: locations[index].name),
                   ),
                 );
               },
@@ -89,15 +93,15 @@ class _FindPlacesViewState extends State<FindPlacesView> {
                       left: 8.0,
                       child: Row(
                         children: [
-                          Icon(
+                          const Icon(
                             Icons.location_on,
                             color: Colors.white,
                             size: 20.0,
                           ),
-                          SizedBox(width: 4.0),
+                          const SizedBox(width: 4.0),
                           Text(
                             locations[index].name,
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: Colors.white,
                               fontSize: 16.0,
                               fontWeight: FontWeight.bold,

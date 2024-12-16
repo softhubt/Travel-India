@@ -24,7 +24,6 @@ class DashboardController extends GetxController {
   //RxString selectedStateName = RxString("");
   RxString selectedStateName = "".obs;
 
-
   Future initialFunctioun() async {
     await getCurrentLocation();
   }
@@ -45,12 +44,12 @@ class DashboardController extends GetxController {
       );
 
       List<Placemark> placeMarks =
-      await placemarkFromCoordinates(position.latitude, position.longitude);
+          await placemarkFromCoordinates(position.latitude, position.longitude);
 
       if (placeMarks.isNotEmpty) {
         Placemark place = placeMarks[0];
         currentAddress.value =
-        "${place.street}, ${place.locality}, ${place.administrativeArea}, ${place.postalCode}, ${place.isoCountryCode}";
+            "${place.street}, ${place.locality}, ${place.administrativeArea}, ${place.postalCode}, ${place.isoCountryCode}";
         currentState.value = place.administrativeArea ?? '';
         currentCity.value = place.locality ?? '';
       } else {
@@ -61,13 +60,12 @@ class DashboardController extends GetxController {
     }
   }
 
-
-
   Future<void> StateListView() async {
     try {
       CustomLoader.openCustomLoader();
 
-      var response = await HttpServices.getHttpMethod(url: EndPointConstant.statelist);
+      var response =
+          await HttpServices.getHttpMethod(url: EndPointConstant.statelist);
 
       log("Post product category response ::: $response");
       stateListModel = stateListModelFromJson(response["body"]);
@@ -78,15 +76,12 @@ class DashboardController extends GetxController {
         CustomLoader.closeCustomLoader();
         log("Something went wrong ::: ${stateListModel.dataCode}");
       }
-
     } catch (error, st) {
       CustomLoader.closeCustomLoader();
       log("Exception occurred ::: $error");
       log("Stack trace ::: $st");
     }
   }
-
-
 
   Future CityListView(String stateName) async {
     try {
@@ -107,7 +102,6 @@ class DashboardController extends GetxController {
       if (getcityListModel.dataCode == "200" ||
           getcityListModel.dataCode == "201") {
         CustomLoader.closeCustomLoader();
-
       } else {
         CustomLoader.closeCustomLoader();
         log("Something went wrong during getting profile :: ${getcityListModel.dataCode}");
@@ -122,7 +116,8 @@ class DashboardController extends GetxController {
     try {
       CustomLoader.openCustomLoader();
 
-      var response = await HttpServices.getHttpMethod(url: EndPointConstant.packagelist);
+      var response =
+          await HttpServices.getHttpMethod(url: EndPointConstant.packagelist);
 
       log("Post product category response ::: $response");
       getPackageListModel = getPackageListModelFromJson(response["body"]);
@@ -133,7 +128,6 @@ class DashboardController extends GetxController {
         CustomLoader.closeCustomLoader();
         log("Something went wrong ::: ${getPackageListModel.dataCode}");
       }
-
     } catch (error, st) {
       CustomLoader.closeCustomLoader();
       log("Exception occurred ::: $error");
@@ -141,4 +135,3 @@ class DashboardController extends GetxController {
     }
   }
 }
-
