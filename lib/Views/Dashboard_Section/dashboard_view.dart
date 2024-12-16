@@ -161,10 +161,9 @@ class _DashboardViewState extends State<DashboardView> {
 
     try {
       final request = http.MultipartRequest(
-        'POST',
-        Uri.parse(
-            'https://meradaftar.com/travel_admin/travel_india_api/location_api.php'),
-      )
+          'POST',
+          Uri.parse(
+              'https://meradaftar.com/travel_admin/travel_india_api/location_api.php'))
         ..fields['state'] = state
         ..fields['city'] = city
         ..fields['location'] = locationName
@@ -185,13 +184,9 @@ class _DashboardViewState extends State<DashboardView> {
       final data = jsonDecode(responseBody);
 
       if (data['code'] == '200') {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Location details submitted successfully'),
-          ),
-        );
-        Navigator.of(context)
-            .pop(); // Close the dialog on successful submission
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content: Text('Location details submitted successfully')));
+        Navigator.of(context).pop();
       } else {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content:
@@ -207,36 +202,29 @@ class _DashboardViewState extends State<DashboardView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        needChildWidget: true,
-        childWidget: ListTile(
-          leading: const Icon(Icons.home_rounded),
-          title: const Text("Home"),
-          subtitle: Obx(() => Text(controller.currentAddress.value)),
-          trailing: IconButton(
-            icon: const Icon(Icons.location_on),
-            onPressed: () {
-              if (controller.currentState.value.isNotEmpty &&
-                  controller.currentCity.value.isNotEmpty) {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => FindPlacesView(
-                      state: controller.currentState.value,
-                      city: controller.currentCity.value,
-                    ),
-                  ),
-                );
-              } else {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('Current state or city is not available'),
-                  ),
-                );
-              }
-            },
-          ),
-        ),
-      ),
+          needChildWidget: true,
+          childWidget: ListTile(
+              leading: const Icon(Icons.home_rounded),
+              title: const Text("Home"),
+              subtitle: Obx(() => Text(controller.currentAddress.value)),
+              trailing: IconButton(
+                icon: const Icon(Icons.location_on),
+                onPressed: () {
+                  if (controller.currentState.value.isNotEmpty &&
+                      controller.currentCity.value.isNotEmpty) {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => FindPlacesView(
+                                state: controller.currentState.value,
+                                city: controller.currentCity.value)));
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        content:
+                            Text('Current state or city is not available')));
+                  }
+                },
+              ))),
       body: ListView(
         padding: const EdgeInsets.all(16.0),
         children: [

@@ -25,7 +25,9 @@ class _SplashViewState extends State<SplashView> {
       body: GetBuilder<SplashController>(
           init: SplashController(),
           builder: (controller) {
-            return Expanded(
+            return SizedBox(
+                height: Get.height,
+                width: Get.width,
                 child: Image.asset(ImagePathConstant.spash, fit: BoxFit.fill));
           }),
     );
