@@ -311,12 +311,10 @@ class _DashboardViewState extends State<DashboardView> {
           ),
           const SizedBox(height: 20),
           const Padding(
-            padding: EdgeInsets.only(left: 16.0),
-            child: Text(
-              "Travel by Categories",
-              style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
-            ),
-          ),
+              padding: EdgeInsets.only(left: 16.0),
+              child: Text("Travel by Categories",
+                  style:
+                      TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold))),
           SizedBox(
             height: 160,
             child: FutureBuilder<List<Category>>(
@@ -394,7 +392,7 @@ class _DashboardViewState extends State<DashboardView> {
             ),
           ),
           SizedBox(
-            height: 300,
+            height: 300, // Constrains the ListView's height
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
               itemCount: packages.length,
@@ -412,7 +410,7 @@ class _DashboardViewState extends State<DashboardView> {
                       );
                     },
                     child: Container(
-                      width: 250,
+                      width: 250, // Fixed width for each card
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(16),
@@ -421,7 +419,8 @@ class _DashboardViewState extends State<DashboardView> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Container(
-                            height: 200,
+                            height:
+                                150, // Limit the image height to fit within the SizedBox
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(14),
                               image: DecorationImage(
@@ -437,6 +436,9 @@ class _DashboardViewState extends State<DashboardView> {
                               packages[index].packageName,
                               style: const TextStyle(
                                   fontSize: 20, fontWeight: FontWeight.bold),
+                              maxLines: 1, // Prevent overflow by limiting lines
+                              overflow: TextOverflow
+                                  .ellipsis, // Adds "..." if overflow occurs
                             ),
                           ),
                           Padding(
