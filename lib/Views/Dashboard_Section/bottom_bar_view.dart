@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:travelindia/Constant/color_constant.dart';
-import 'package:travelindia/Constant/textstyle_constant.dart';
 import 'package:travelindia/Controllers/bottom_bar_controller.dart';
 
 class BottomBarView extends StatefulWidget {
