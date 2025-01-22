@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:travelindia/Constant/endpoint_constant.dart';
-import 'package:travelindia/Model/Get_CategorypkgList_Model.dart';
+import 'package:travelindia/Models/get_package_list_model.dart';
 import 'package:travelindia/Services/http_services.dart';
 import 'package:travelindia/Widgets/custom_loader.dart';
 
@@ -22,18 +22,18 @@ class PackageListController extends GetxController {
     try {
       CustomLoader.openCustomLoader();
 
-      var response = await HttpServices.getHttpMethod(url: EndPointConstant.packagelist);
+      var response = await HttpServices.getHttpMethod(
+          url: EndPointConstant.packagelist, message: "");
 
       log("Post product category response ::: $response");
       getPackageListModel = getPackageListModelFromJson(response["body"]);
 
-        if (getPackageListModel.dataCode == "200") {
-          CustomLoader.closeCustomLoader();
-        } else {
-          CustomLoader.closeCustomLoader();
-          log("Something went wrong ::: ${getPackageListModel.dataCode}");
-        }
-
+      if (getPackageListModel.dataCode == "200") {
+        CustomLoader.closeCustomLoader();
+      } else {
+        CustomLoader.closeCustomLoader();
+        log("Something went wrong ::: ${getPackageListModel.dataCode}");
+      }
     } catch (error, st) {
       CustomLoader.closeCustomLoader();
       log("Exception occurred ::: $error");

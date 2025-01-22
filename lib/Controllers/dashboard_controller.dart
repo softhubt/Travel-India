@@ -1,31 +1,33 @@
 import 'dart:developer';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:travelindia/Constant/endpoint_constant.dart';
-import 'package:travelindia/Model/Post_City_List_Model.dart';
-import 'package:travelindia/Model/StateList_Model.dart';
-import 'package:travelindia/Model/Get_CategorypkgList_Model.dart';
+import 'package:travelindia/Models/get_category_list_model.dart';
+import 'package:travelindia/Models/get_city_list_model.dart';
+import 'package:travelindia/Models/get_package_list_model.dart';
+import 'package:travelindia/Models/get_state_list_model.dart';
 import 'package:travelindia/Services/http_services.dart';
-import 'package:travelindia/Widgets/custom_loader.dart';
 
 class DashboardController extends GetxController {
-  TextEditingController stateController = TextEditingController();
-  TextEditingController cityController = TextEditingController();
+  GetStateListModel getStateListModel = GetStateListModel();
+  GetCityListModel getCityListModel = GetCityListModel();
   GetPackageListModel getPackageListModel = GetPackageListModel();
-  StateListModel stateListModel = StateListModel();
-  GetcityListModel getcityListModel = GetcityListModel();
+  Rx<GetCategoryListModel> getCategoryListModel = GetCategoryListModel().obs;
 
-  var currentState = ''.obs;
-  var currentCity = ''.obs;
+  RxList<String> stateList = <String>[].obs;
+  RxList<String> cityList = <String>[].obs;
+
   RxString currentAddress = "".obs;
-  //RxString selectedStateName = RxString("");
-  RxString selectedStateName = "".obs;
+  RxString currentState = "".obs;
+  RxString currentCity = "".obs;
+  RxString selectedState = "".obs;
+  RxString selectedCity = "".obs;
 
   Future initialFunctioun() async {
     await getCurrentLocation();
+    await getStateList();
+    await getPackageList();
   }
 
   Future<void> getCurrentLocation() async {
@@ -60,78 +62,83 @@ class DashboardController extends GetxController {
     }
   }
 
-  Future<void> StateListView() async {
+  Future getStateList() async {
     try {
-      CustomLoader.openCustomLoader();
+      var response = await HttpServices.getHttpMethod(
+          url: EndPointConstant.statelist, message: "Get state list");
 
-      var response =
-          await HttpServices.getHttpMethod(url: EndPointConstant.statelist);
+      getStateListModel = getStateListModelFromJson(response["body"]);
 
-      log("Post product category response ::: $response");
-      stateListModel = stateListModelFromJson(response["body"]);
-
-      if (stateListModel.dataCode == "200") {
-        CustomLoader.closeCustomLoader();
+      if (response["status_code"] == 200 || response["status_code"] == 201) {
+        getStateListModel.itemlist?.forEach(
+          (element) {
+            stateList.add(element.name ?? "");
+          },
+        );
       } else {
-        CustomLoader.closeCustomLoader();
-        log("Something went wrong ::: ${stateListModel.dataCode}");
-      }
-    } catch (error, st) {
-      CustomLoader.closeCustomLoader();
-      log("Exception occurred ::: $error");
-      log("Stack trace ::: $st");
-    }
-  }
-
-  Future CityListView(String stateName) async {
-    try {
-      CustomLoader.openCustomLoader();
-
-      Map<String, dynamic> payload = {"state_name": stateName};
-
-      log("Get profile payload ::: $payload");
-      getcityListModel = getcityListModelFromJson(payload["body"]);
-
-      var response = await HttpServices.postHttpMethod(
-          url: EndPointConstant.citylist, payload: payload);
-
-      log("Get profile response ::: $response");
-
-      getcityListModel = getcityListModelFromJson(response["body"]);
-
-      if (getcityListModel.dataCode == "200" ||
-          getcityListModel.dataCode == "201") {
-        CustomLoader.closeCustomLoader();
-      } else {
-        CustomLoader.closeCustomLoader();
-        log("Something went wrong during getting profile :: ${getcityListModel.dataCode}");
+        log("Something went wrong during getting state list ::: ${getStateListModel.dataCode}");
       }
     } catch (error) {
-      CustomLoader.closeCustomLoader();
-      debugPrint("Something went wrong during getting profile ::: $error");
+      log("Something went wrong during getting state list ::: $error");
     }
   }
 
-  Future<void> PackageListView() async {
+  Future getCityList({required String state}) async {
     try {
-      CustomLoader.openCustomLoader();
+      cityList.clear(); // Clear the city list before fetching new cities
+      Map<String, dynamic> payload = {"state_name": state};
 
-      var response =
-          await HttpServices.getHttpMethod(url: EndPointConstant.packagelist);
+      var response = await HttpServices.postHttpMethod(
+          url: EndPointConstant.citylist,
+          payload: payload,
+          message: "Get city list");
 
-      log("Post product category response ::: $response");
+      getCityListModel = getCityListModelFromJson(response["body"]);
+
+      if (response["status_code"] == 200 || response["status_code"] == 201) {
+        getCityListModel.itemlist?.forEach(
+          (element) {
+            cityList.add(element.name ?? "");
+          },
+        );
+      } else {
+        log("Something went wrong during getting city list ::: ${getCityListModel.dataCode}");
+      }
+    } catch (error) {
+      log("Something went wrong during getting city list ::: $error");
+    }
+  }
+
+  Future getPackageList() async {
+    try {
+      var response = await HttpServices.getHttpMethod(
+          url: EndPointConstant.packagelist, message: "Get package list");
+
       getPackageListModel = getPackageListModelFromJson(response["body"]);
 
-      if (getPackageListModel.dataCode == "200") {
-        CustomLoader.closeCustomLoader();
+      if (response["status_code"] == 200 || response["status_code"] == 201) {
       } else {
-        CustomLoader.closeCustomLoader();
-        log("Something went wrong ::: ${getPackageListModel.dataCode}");
+        log("Something went wrong during getting package list ::: ${getPackageListModel.dataCode}");
       }
-    } catch (error, st) {
-      CustomLoader.closeCustomLoader();
-      log("Exception occurred ::: $error");
-      log("Stack trace ::: $st");
+    } catch (error) {
+      log("Something went wrong during getting package list ::: $error");
+    }
+  }
+
+  Future getCategoryList() async {
+    try {
+      var response = await HttpServices.getHttpMethod(
+          url: EndPointConstant.categoryList, message: "Get category list");
+
+      getCategoryListModel.value =
+          getCategoryListModelFromJson(response["body"]);
+
+      if (response["status_code"] == 200 || response["status_code"] == 201) {
+      } else {
+        log("Something went wrong during getting category list ::: ${getCategoryListModel.value.dataCode}");
+      }
+    } catch (error) {
+      log("Something went wrong during getting category list ::: $error");
     }
   }
 }

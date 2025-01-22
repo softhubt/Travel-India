@@ -51,7 +51,7 @@ class MyApp extends StatelessWidget {
             titleTextStyle: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.w600,
-                color: ColorConstant.white)),
+                color: ColorConstant.black)),
 
         // Customize Bottom Navigation Bar theme
         bottomNavigationBarTheme: const BottomNavigationBarThemeData(

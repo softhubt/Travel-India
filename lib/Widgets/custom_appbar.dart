@@ -11,39 +11,43 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final bool? centerTitle;
   final bool? needBackIcon;
   final Color? backGroundColor;
+  final Color? backIconColor;
   final Color? textColor;
   final Widget? extraWidget;
 
-  const CustomAppBar(
-      {super.key,
-      this.title,
-      this.centerTitle,
-      this.needBackIcon,
-      this.leading,
-      this.action,
-      this.backGroundColor,
-      this.textColor,
-      this.needChildWidget,
-      this.childWidget,
-      this.extraWidget,});
+  const CustomAppBar({
+    super.key,
+    this.title,
+    this.centerTitle,
+    this.needBackIcon,
+    this.leading,
+    this.action,
+    this.backGroundColor,
+    this.textColor,
+    this.needChildWidget,
+    this.childWidget,
+    this.extraWidget,
+    this.backIconColor,
+  });
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: backGroundColor ?? ColorConstant.white,
+      backgroundColor: backGroundColor ?? ColorConstant.cloudWhite,
       title: (needChildWidget == true)
           ? childWidget
           : Text(
               "$title",
-              style: TextStyle(color: textColor),
+              style: TextStyle(color: textColor ?? ColorConstant.black),
             ),
       leading: (needBackIcon == true)
           ? IconButton(
               onPressed: () => Get.back(),
-              icon: const Icon(Icons.arrow_back_rounded))
+              icon: Icon(Icons.arrow_back_rounded,
+                  color: backIconColor ?? ColorConstant.black))
           : leading,
       actions: action,
-      centerTitle: centerTitle,
+      centerTitle: centerTitle ?? false,
     );
   }
 
