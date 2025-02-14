@@ -2,26 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 final EdgeInsetsGeometry screenPadding = EdgeInsets.symmetric(
-    vertical: responsiveHeight(height: 14),
-    horizontal: responsiveWidth(width: 10));
+    vertical: responsiveHeight(height: 20),
+    horizontal: responsiveWidth(width: 32));
 final EdgeInsetsGeometry screenVerticalPadding =
-    EdgeInsets.symmetric(vertical: responsiveHeight(height: 14));
+    EdgeInsets.symmetric(vertical: responsiveHeight(height: 20));
 final EdgeInsetsGeometry screenHorizontalPadding =
-    EdgeInsets.symmetric(horizontal: responsiveWidth(width: 10));
+    EdgeInsets.symmetric(horizontal: responsiveWidth(width: 32));
 
-final double screenHeightPadding = responsiveHeight(height: 14);
-final double screenWidthPadding = responsiveWidth(width: 10);
+final double screenHeightPadding = responsiveHeight(height: 20);
+final double screenWidthPadding = responsiveWidth(width: 32);
 
 final EdgeInsetsGeometry contentPadding = EdgeInsets.symmetric(
-    vertical: responsiveHeight(height: 4),
-    horizontal: responsiveWidth(width: 6));
+    vertical: responsiveHeight(height: 10),
+    horizontal: responsiveWidth(width: 16));
 final EdgeInsetsGeometry contentVerticalPadding =
-    EdgeInsets.symmetric(vertical: responsiveHeight(height: 4));
+    EdgeInsets.symmetric(vertical: responsiveHeight(height: 10));
 final EdgeInsetsGeometry contentHorizontalPadding =
-    EdgeInsets.symmetric(horizontal: responsiveWidth(width: 6));
+    EdgeInsets.symmetric(horizontal: responsiveWidth(width: 16));
 
-final double contentHeightPadding = responsiveHeight(height: 4);
-final double contentWidthPadding = responsiveWidth(width: 6);
+final double contentHeightPadding = responsiveHeight(height: 10);
+final double contentWidthPadding = responsiveWidth(width: 16);
 
 double responsiveHeight({required double height}) =>
     Get.height * (height / 1000);

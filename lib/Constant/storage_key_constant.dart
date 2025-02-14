@@ -8,6 +8,7 @@ class StorageKeyConstant {
 
   // Keys
   static const String isAuthenticate = "is_authenticate";
+  static const String isGuest = "is_guest";
   static const String firstName = "first_name";
   static const String lastName = "last_name";
   static const String Id = "Id";

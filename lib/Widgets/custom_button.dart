@@ -42,11 +42,11 @@ class CustomButton extends StatelessWidget {
         decoration: BoxDecoration(
             color: backgroundColor ?? ColorConstant.primary,
             border: border,
-            borderRadius: BorderRadius.circular(30)),
+            borderRadius: BorderRadius.circular(12)),
         child: (needChildWidget == true)
             ? childWidget
             : Text("$title",
-                style: TextStyleConstant.medium18(
+                style: TextStyleConstant.semiBold18(
                     color: textColor ?? ColorConstant.white)),
       ),
     );

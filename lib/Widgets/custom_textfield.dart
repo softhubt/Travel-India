@@ -6,6 +6,7 @@ class CustomTextField extends StatelessWidget {
   final TextEditingController controller;
   final String hintText;
   final Function()? onTap;
+  final void Function(String)? onChanged;
   final int? maxLength;
   final bool? enable;
   final Color? fillColor;
@@ -25,7 +26,8 @@ class CustomTextField extends StatelessWidget {
       this.prefixIcon,
       this.suffixIcon,
       this.textInputType,
-      this.validator});
+      this.validator,
+      this.onChanged});
 
   @override
   Widget build(BuildContext context) {
@@ -36,9 +38,14 @@ class CustomTextField extends StatelessWidget {
       cursorColor: ColorConstant.primary,
       keyboardType: textInputType ?? TextInputType.text,
       validator: validator,
+      style: TextStyleConstant.semiBold16(),
+      onChanged: onChanged,
       decoration: InputDecoration(
+        contentPadding:
+            // ignore: prefer_const_constructors
+            EdgeInsets.symmetric(vertical: 0, horizontal: 16), // Adjust height
         hintText: hintText,
-        hintStyle: TextStyleConstant.regular14(color: ColorConstant.grey),
+        hintStyle: TextStyleConstant.semiBold14(),
         enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8),
             borderSide: const BorderSide(width: 1, color: ColorConstant.grey)),

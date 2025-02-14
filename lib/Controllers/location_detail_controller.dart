@@ -1,7 +1,6 @@
 import 'dart:developer';
 import 'package:get/get.dart';
 import 'package:travelindia/Constant/endpoint_constant.dart';
-import 'package:travelindia/Models/get_finded_place_list_model.dart';
 import 'package:travelindia/Models/get_location_detail_model.dart';
 import 'package:travelindia/Services/http_services.dart';
 

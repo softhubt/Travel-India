@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:travelindia/Constant/image_path_constant.dart';
 import 'package:travelindia/Controllers/splash_controller.dart';
 
 class SplashView extends StatefulWidget {
@@ -26,9 +25,10 @@ class _SplashViewState extends State<SplashView> {
           init: SplashController(),
           builder: (controller) {
             return SizedBox(
-                height: Get.height,
-                width: Get.width,
-                child: Image.asset(ImagePathConstant.spash, fit: BoxFit.fill));
+              height: Get.height,
+              width: Get.width,
+              // child: Image.asset(ImagePathConstant., fit: BoxFit.fill)
+            );
           }),
     );
   }

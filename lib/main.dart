@@ -1,5 +1,3 @@
-// ignore_for_file: deprecated_member_use
-
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -88,3 +86,13 @@ class MyApp extends StatelessWidget {
                 const TextStyle(fontSize: 14, color: ColorConstant.grey)));
   }
 }
+
+// About Site, Things to do, Food/Drinks, Hotels&Homes, Transpot, Hire Guides
+
+//BottomBar Categories: explore, likes, ticket, profile
+
+// Show the finded list location in dashboard first(the location list will be based on user's current city)
+// Show the category list under this finded location list
+// Show the package list under the category list
+// Make sure to add rate location module in each and every location
+//
