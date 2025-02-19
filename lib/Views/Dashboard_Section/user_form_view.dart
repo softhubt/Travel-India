@@ -39,6 +39,16 @@ class _UserFormViewState extends State<UserFormView> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Container(
+                  height: responsiveHeight(height: 260),
+                  width: Get.width,
+                  decoration: BoxDecoration(
+                      color: ColorConstant.black,
+                      borderRadius: BorderRadius.circular(30),
+                      image: const DecorationImage(
+                          image: NetworkImage(
+                              "https://media.istockphoto.com/id/472899538/photo/downtown-cleveland-hotel-entrance-and-waiting-taxi-cab.jpg?s=612x612&w=0&k=20&c=rz-WSe_6gKfkID6EL9yxCdN_UIMkXUBsr67884j-X9o="),
+                          fit: BoxFit.fill))),
               SizedBox(height: screenHeightPadding),
               Text("Name", style: TextStyleConstant.medium16()),
               CustomTextField(

@@ -38,11 +38,21 @@ class _DashboardViewState extends State<DashboardView> {
       backgroundColor: ColorConstant.cloudWhite,
       appBar: CustomAppBar(
         needChildWidget: true,
-        childWidget: GestureDetector(
-            onTap: () => selectStateDialog(),
-            child: (controller.selectedState.value.isNotEmpty)
-                ? Text(controller.selectedState.value)
-                : const Text("Select State")),
+        childWidget: Row(
+          children: [
+            const Icon(Icons.map_rounded, color: ColorConstant.black),
+            responsiveSizedBoxWidth(width: 20),
+            GestureDetector(
+                onTap: () => selectStateDialog(),
+                child: Obx(
+                  () {
+                    return (controller.selectedState.value.isNotEmpty)
+                        ? Text(controller.selectedState.value)
+                        : const Text("Select State");
+                  },
+                )),
+          ],
+        ),
         action: [
           IconButton(
               onPressed: () {
@@ -62,15 +72,15 @@ class _DashboardViewState extends State<DashboardView> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(
-                  height: responsiveHeight(height: 260),
-                  width: Get.width,
-                  child: Image.asset(
-                    ImagePathConstant.getStart,
-                    fit: BoxFit.fill,
-                    gaplessPlayback: true, // Prevents flickering when reloading
-                  ),
-                ),
+                if (controller.showFoundPlaces.value == false &&
+                    controller.getFindedPlaceListModel.value
+                            .categoryLocationList ==
+                        null)
+                  SizedBox(
+                      height: responsiveHeight(height: 260),
+                      width: Get.width,
+                      child: Image.asset(ImagePathConstant.getStart,
+                          fit: BoxFit.fill, gaplessPlayback: true)),
 
                 // Show Found Places List when data is available
                 Obx(() {
@@ -80,41 +90,70 @@ class _DashboardViewState extends State<DashboardView> {
                           null &&
                       controller.getFindedPlaceListModel.value
                           .categoryLocationList!.isNotEmpty) {
-                    return ListView.builder(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: controller.getFindedPlaceListModel.value
-                          .categoryLocationList!.length,
-                      itemBuilder: (context, index) {
-                        final element = controller.getFindedPlaceListModel.value
-                            .categoryLocationList![index];
+                    return Padding(
+                        padding: screenHorizontalPadding,
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: controller.getFindedPlaceListModel.value
+                              .categoryLocationList!.length,
+                          itemBuilder: (context, index) {
+                            final element = controller.getFindedPlaceListModel
+                                .value.categoryLocationList![index];
 
-                        return Padding(
-                          padding: EdgeInsets.only(
-                              top: responsiveHeight(height: 16)),
-                          child: GestureDetector(
-                            onTap: () {
-                              Get.to(() => LocationDetailView(
-                                  location: "${element.location}"));
-                            },
-                            child: Container(
-                              alignment: Alignment.bottomLeft,
-                              height: responsiveHeight(height: 200),
-                              width: Get.width,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(14),
-                                  image: DecorationImage(
-                                      image: NetworkImage("${element.file}"),
-                                      fit: BoxFit.fill),
-                                  boxShadow: const [BoxShadow()]),
-                              child: Text("${element.location}",
-                                  style: TextStyleConstant.medium18(
-                                      color: ColorConstant.white)),
-                            ),
-                          ),
-                        );
-                      },
-                    );
+                            return Padding(
+                                padding: EdgeInsets.only(
+                                    top: responsiveHeight(height: 16)),
+                                child: GestureDetector(
+                                    onTap: () {
+                                      Get.to(() => LocationDetailView(
+                                          location: "${element.location}"));
+                                    },
+                                    child: Stack(
+                                      children: [
+                                        Container(
+                                            alignment: Alignment.bottomLeft,
+                                            height:
+                                                responsiveHeight(height: 200),
+                                            width: Get.width,
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(14),
+                                                image: DecorationImage(
+                                                    image: NetworkImage(
+                                                        "${element.file}"),
+                                                    fit: BoxFit.fill),
+                                                boxShadow: const [
+                                                  BoxShadow()
+                                                ])),
+                                        Container(
+                                            height:
+                                                responsiveHeight(height: 200),
+                                            width: Get.width,
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(14),
+                                                gradient: LinearGradient(
+                                                  begin: Alignment.bottomCenter,
+                                                  end: Alignment.topCenter,
+                                                  colors: [
+                                                    Colors.black
+                                                        .withOpacity(0.5),
+                                                    Colors.transparent,
+                                                  ],
+                                                ))),
+                                        Positioned(
+                                            bottom: 10,
+                                            left: contentWidthPadding,
+                                            child: Text("${element.location}",
+                                                style:
+                                                    TextStyleConstant.medium18(
+                                                        color: ColorConstant
+                                                            .white))),
+                                      ],
+                                    )));
+                          },
+                        ));
                   } else {
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
